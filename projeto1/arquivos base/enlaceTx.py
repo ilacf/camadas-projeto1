@@ -48,7 +48,7 @@ class TX(object):
         self.transLen   = 0
         self.buffer = data
         self.threadMutex  = True
-    # 
+    # zera o translen, adiciona o dado entregue no buffer e depois resume a transmissao de bytes
 
     def getBufferLen(self):
         return(len(self.buffer))
@@ -56,7 +56,6 @@ class TX(object):
     def getStatus(self):
         return(self.transLen)
         
-
     def getIsBussy(self):
         return(self.threadMutex)
 
