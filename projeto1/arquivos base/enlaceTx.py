@@ -48,6 +48,7 @@ class TX(object):
         self.transLen   = 0
         self.buffer = data
         self.threadMutex  = True
+    # 
 
     def getBufferLen(self):
         return(len(self.buffer))

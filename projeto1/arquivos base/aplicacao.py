@@ -20,9 +20,7 @@ import numpy as np
 # se estiver usando windows, o gerenciador de dispositivos informa a porta
 
 #use uma das 3 opcoes para atribuir à variável a porta usada
-#serialName = "/dev/ttyACM0"           # Ubuntu (variacao de)
-#serialName = "/dev/tty.usbmodem1411" # Mac    (variacao de)
-serialName = "COM11"                  # Windows(variacao de)
+serialName = "COM3"                  # Windows(variacao de)
 
 
 def main():
@@ -33,7 +31,7 @@ def main():
         com1 = enlace(serialName)
         
     
-        # Ativa comunicacao. Inicia os threads e a comunicação seiral 
+        # Ativa comunicacao. Inicia os threads e a comunicação serial 
         com1.enable()
         #Se chegamos até aqui, a comunicação foi aberta com sucesso. Faça um print para informar.
         print("Abriu a comunicação")
@@ -42,10 +40,10 @@ def main():
                   
         #aqui você deverá gerar os dados a serem transmitidos. 
         #seus dados a serem transmitidos são um array bytes a serem transmitidos. Gere esta lista com o 
-        #nome de txBuffer. Esla sempre irá armazenar os dados a serem enviados.
-        
-        #txBuffer = imagem em bytes!
-        txBuffer = b'\x12\x13\xAA'  #isso é um array de bytes
+        #nome de txBuffer. Esa sempre irá armazenar os dados a serem enviados.
+
+        imageR = "./img/image.png"
+        txBuffer = open(imageR, 'rb').read()
        
         print("meu array de bytes tem tamanho {}" .format(len(txBuffer)))
         #faça aqui uma conferência do tamanho do seu txBuffer, ou seja, quantos bytes serão enviados.
@@ -79,7 +77,12 @@ def main():
         for i in range(len(rxBuffer)):
             print("recebeu {}" .format(rxBuffer[i]))
         
+        imageW = "img/recebidaCopia.png"
+        f = open(imageW, "wb")
+        f.write(rxBuffer)
 
+        # Fecha arquivo de imagem
+        f.close()
             
     
         # Encerra comunicação
