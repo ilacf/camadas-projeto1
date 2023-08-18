@@ -52,7 +52,7 @@ class RX(object):
 
     def getBufferLen(self):
         return(len(self.buffer))
-    # pega quantidade de bytes armazenados no buffer ate agr
+    # pega quantidade de bytes armazenados no buffer no momento
 
     def getAllBuffer(self, len):
         self.threadPause()
@@ -61,8 +61,9 @@ class RX(object):
         self.threadResume()
         return(b)
     # no geral pega todos os bytes que estao armazenados no buffer para ler:
-    # primeiro pausa a passagem de dados, depois guarda todos os bytes na variavel b, limpa o buffer,
-    # apagando todos os byter e depois resume a passagem de dados, alem de retornar a variavel b
+    # primeiro pausa a passagem de dados para o buffer, depois guarda todos os bytes armazenados
+    # na variavel b, limpa o buffer, apagando todos os bytes e depois resume a passagem de dados
+    # para o buffer, alem de retornar a variavel b
 
     def getBuffer(self, nData):
         self.threadPause()
@@ -71,16 +72,17 @@ class RX(object):
         self.threadResume()
         return(b)
     # no geral pega uma certa quantidade de bytes:
-    # primeiro pausa a transmissao de bytes, salva todos os bytes do inicio ate um certo indice recebido
-    # na funcao na variavel b, guarda o resto dos bytes de volta no buffer, resume o thread e retorna b 
+    # primeiro pausa a transmissao de bytes para o buffer, salva todos os bytes do inicio ate um 
+    # certo indice (recebido na chamada da funcao) na variavel b, guarda so o resto dos bytes de volta
+    # no buffer, resume o thread e retorna b 
 
     def getNData(self, size):
         while(self.getBufferLen() < size):
             time.sleep(0.05)                 
         return(self.getBuffer(size))
-    # enquanto o buffer nao tiver a quantidade de bytes que a funcao recebe na variavel size, o buffer
-    # fica recebendo mais bytes ate chegar no tamanho certo. A funcao retorna a quantidade de bytes
-    # escolhido.
+    # enquanto o buffer nao tiver a quantidade de bytes recebida na chamada da funcao (param )size, 
+    # o buffer fica recebendo mais bytes ate chegar no tamanho certo. A funcao retorna so a quantidade 
+    # de bytes escolhido. (nao o valor da quantidade, os bytes em si)
 
     def clearBuffer(self):
         self.buffer = b""

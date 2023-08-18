@@ -42,7 +42,7 @@ def main():
         #seus dados a serem transmitidos são um array bytes a serem transmitidos. Gere esta lista com o 
         #nome de txBuffer. Esa sempre irá armazenar os dados a serem enviados.
 
-        imageR = "./img/image.png"
+        imageR = "img/image.png"
         txBuffer = open(imageR, 'rb').read()
        
         print("meu array de bytes tem tamanho {}" .format(len(txBuffer)))
@@ -56,7 +56,7 @@ def main():
                
         
         com1.sendData(np.asarray(txBuffer))  #as array apenas como boa pratica para casos de ter uma outra forma de dados
-          
+        time.sleep(1)
         # A camada enlace possui uma camada inferior, TX possui um método para conhecermos o status da transmissão
         # O método não deve estar fincionando quando usado como abaixo. deve estar retornando zero. Tente entender como esse método funciona e faça-o funcionar.
         txSize = com1.tx.getStatus()

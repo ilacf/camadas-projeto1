@@ -48,7 +48,12 @@ class TX(object):
         self.transLen   = 0
         self.buffer = data
         self.threadMutex  = True
-    # zera o translen, adiciona o dado entregue no buffer e depois resume a transmissao de bytes
+    # zera o translen, que identifica a quantidade de bytes transmitidos, ara garantir que o valor
+    # novo vai ser a quantidade certa de bytes que estao sendo transmitidos; adiciona os bytes entregues 
+    # no buffer e depois resume a transmissao de bytes atraves da ativacao do threadmutex. Esse processo
+    # leva à reatribuicao do valor de dados enviados para a variavel translen pq ativa a funcao thread,
+    # e, apos a transmissao completa de todos os dados, desliga o threadmutex para parar de transmitir,
+    # deixando assim que mais informacoes sejam carregadas ao buffer.
 
     def getBufferLen(self):
         return(len(self.buffer))
