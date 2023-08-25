@@ -46,21 +46,14 @@ def main():
         comandos = [b'\x00\x00\x00\x00', b'\x00\x00\xBB\x00', b'\xBB\x00\x00', b'\x00\xBB\x00', b'\x00\x00\xBB', b'\x00\xAA', b'\xBB\x00', b'\x00', b'\xBB']
         bytes = [4, 4, 3, 3, 3, 2, 2, 1, 1]
         qntd = randint(10, 30)
-        txBuffer = [qntd]
+        txBuffer = []
         for _ in range(qntd):
             tipo = randint(1, 9)
             txBuffer.append(bytes[tipo-1])
             txBuffer.append(comandos[tipo-1])
+        txBuffer.append('final')
        
-        print("meu array de bytes tem tamanho {}" .format(len(txBuffer)))
-        #faça aqui uma conferência do tamanho do seu txBuffer, ou seja, quantos bytes serão enviados.
-       
-            
-        #finalmente vamos transmitir os todos. Para isso usamos a funçao sendData que é um método da camada enlace.
-        #faça um print para avisar que a transmissão vai começar.
-        #tente entender como o método send funciona!
-        #Cuidado! Apenas trasmita arrays de bytes!
-               
+        print("meu array de bytes tem tamanho {}" .format(len(txBuffer)))   
         
         com1.sendData(np.asarray(txBuffer))  #as array apenas como boa pratica para casos de ter uma outra forma de dados
         time.sleep(1)
