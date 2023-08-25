@@ -51,7 +51,7 @@ def main():
       
         #acesso aos bytes recebidos
         recebido = []
-        for i in range(qntd):
+        while True:
             txLen, _ = com1.getData(1)
             if txLen != 'final':
                 rxBuffer, nRx = com1.getData(txLen)
