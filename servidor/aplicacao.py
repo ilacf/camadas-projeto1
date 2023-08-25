@@ -11,8 +11,10 @@
 
 
 from enlace import *
+import enlaceRx
 import time
 import numpy as np
+from random import randint, random
 
 # voce deverá descomentar e configurar a porta com através da qual ira fazer comunicaçao
 #   para saber a sua porta, execute no terminal :
@@ -36,32 +38,6 @@ def main():
         #Se chegamos até aqui, a comunicação foi aberta com sucesso. Faça um print para informar.
         print("Abriu a comunicação")
         
-           
-                  
-        #aqui você deverá gerar os dados a serem transmitidos. 
-        #seus dados a serem transmitidos são um array bytes a serem transmitidos. Gere esta lista com o 
-        #nome de txBuffer. Esa sempre irá armazenar os dados a serem enviados.
-
-        imageR = "img/image.png"
-        txBuffer = open(imageR, 'rb').read()
-       
-        print("meu array de bytes tem tamanho {}" .format(len(txBuffer)))
-        #faça aqui uma conferência do tamanho do seu txBuffer, ou seja, quantos bytes serão enviados.
-       
-            
-        #finalmente vamos transmitir os todos. Para isso usamos a funçao sendData que é um método da camada enlace.
-        #faça um print para avisar que a transmissão vai começar.
-        #tente entender como o método send funciona!
-        #Cuidado! Apenas trasmita arrays de bytes!
-               
-        
-        com1.sendData(np.asarray(txBuffer))  #as array apenas como boa pratica para casos de ter uma outra forma de dados
-        time.sleep(1)
-        # A camada enlace possui uma camada inferior, TX possui um método para conhecermos o status da transmissão
-        # O método não deve estar fincionando quando usado como abaixo. deve estar retornando zero. Tente entender como esse método funciona e faça-o funcionar.
-        txSize = com1.tx.getStatus()
-        print('enviou = {}' .format(txSize))
-        
         #Agora vamos iniciar a recepção dos dados. Se algo chegou ao RX, deve estar automaticamente guardado
         #Observe o que faz a rotina dentro do thread RX
         #print um aviso de que a recepção vai começar.
@@ -70,7 +46,7 @@ def main():
         #Veja o que faz a funcao do enlaceRX  getBufferLen
       
         #acesso aos bytes recebidos
-        txLen = len(txBuffer)
+        txLen = len(recebido)
         rxBuffer, nRx = com1.getData(txLen)
         print("recebeu {} bytes" .format(len(rxBuffer)))
         
