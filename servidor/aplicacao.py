@@ -22,7 +22,7 @@ def main():
         while True:
             txLen, _ = com1.getData(1)
             if txLen != b'\xEE':
-                rxBuffer, nRx = com1.getData(int.from_bytes(txLen))
+                rxBuffer, nRx = com1.getData(int.from_bytes(txLen), byteorder='big')
                 recebido.append(rxBuffer)
             else:
                 break
