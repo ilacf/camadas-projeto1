@@ -11,20 +11,23 @@ def main():
         com1 = enlace(serialName)
 
         com1.enable()
+        print("Abriu a comunicação")
         print("esperando 1 byte de sacrifício")
         rxBuffer, nRx = com1.getData(1)
         com1.rx.clearBuffer()
         time.sleep(.1)
         
-        print("Abriu a comunicação")
         
         recebido = []
         while True:
             txLen, _ = com1.getData(1)
+            print(txLen)
             if txLen != b'\xEE':
-                rxBuffer, nRx = com1.getData(int.from_bytes(txLen), byteorder='big')
+                print("Dentro do While")
+                rxBuffer, nRx = com1.getData(int.from_bytes(txLen, byteorder='little'))
                 recebido.append(rxBuffer)
             else:
+                print("Saindo do While")
                 break
 
         print("recebeu {} bytes" .format(len(rxBuffer)))
