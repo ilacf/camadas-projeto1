@@ -28,6 +28,7 @@ def main():
                 recebido.append(rxBuffer)
             else:
                 print("Saindo do While")
+                print(enlace.getBuffer())
                 break
 
         print("recebeu {} bytes" .format(len(rxBuffer)))
