@@ -45,12 +45,12 @@ def main():
 
         comandos = [b'\x00\x00\x00\x00', b'\x00\x00\xBB\x00', b'\xBB\x00\x00', b'\x00\xBB\x00', b'\x00\x00\xBB', b'\x00\xAA', b'\xBB\x00', b'\x00', b'\xBB']
         bytes = [4, 4, 3, 3, 3, 2, 2, 1, 1]
-        qntd = randint(10, 31)
+        qntd = randint(10, 30)
         txBuffer = [qntd]
         for _ in range(qntd):
-            tipo = randint(1, 10)
-            txBuffer.append(bytes[tipo])
-            txBuffer.append(comandos[tipo])
+            tipo = randint(1, 9)
+            txBuffer.append(bytes[tipo-1])
+            txBuffer.append(comandos[tipo-1])
        
         print("meu array de bytes tem tamanho {}" .format(len(txBuffer)))
         #faça aqui uma conferência do tamanho do seu txBuffer, ou seja, quantos bytes serão enviados.
