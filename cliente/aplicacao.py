@@ -28,7 +28,7 @@ def main():
             tipo = randint(1, 9)
             txBuffer.append(bytes[tipo-1])
             txBuffer.append(comandos[tipo-1])
-        txBuffer.append('final')
+        txBuffer.append(b'\xEE')
        
         print("meu array de bytes tem tamanho {}" .format(len(txBuffer)))   
         

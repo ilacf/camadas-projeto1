@@ -5,7 +5,6 @@ import numpy as np
 
 serialName = "COM4"
 
-
 def main():
     try:
         print("Iniciou o main")
@@ -22,8 +21,8 @@ def main():
         recebido = []
         while True:
             txLen, _ = com1.getData(1)
-            if txLen != 'final':
-                rxBuffer, nRx = com1.getData(txLen)
+            if txLen != b'\xEE':
+                rxBuffer, nRx = com1.getData(int.from_bytes(txLen))
                 recebido.append(rxBuffer)
             else:
                 break
