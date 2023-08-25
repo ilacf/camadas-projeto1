@@ -13,7 +13,7 @@
 from enlace import *
 import time
 import numpy as np
-from random import randint, random
+from random import randint
 
 # voce deverá descomentar e configurar a porta com através da qual ira fazer comunicaçao
 #   para saber a sua porta, execute no terminal :
