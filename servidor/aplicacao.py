@@ -57,15 +57,7 @@ def main():
         
         for i in range(len(rxBuffer)):
             print("recebeu {}" .format(rxBuffer[i]))
-        
-        imageW = "img/recebidaCopia.png"
-        f = open(imageW, "wb")
-        f.write(rxBuffer)
-
-        # Fecha arquivo de imagem
-        f.close()
             
-    
         # Encerra comunicação
         print("-------------------------")
         print("Comunicação encerrada")
