@@ -43,14 +43,14 @@ def main():
         #seus dados a serem transmitidos são um array bytes a serem transmitidos. Gere esta lista com o 
         #nome de txBuffer. Esa sempre irá armazenar os dados a serem enviados.
 
-        comandos = [b'\x00\x00\x00\x00', b'\x00\x00\xBB\x00', b'\xBB\x00\x00', b'\x00\xBB\x00', b'\x00\x00\xBB', b'\x00\xAA', b'\xBB\x00\x', b'\x00', b'\xBB']
+        comandos = [b'\x00\x00\x00\x00', b'\x00\x00\xBB\x00', b'\xBB\x00\x00', b'\x00\xBB\x00', b'\x00\x00\xBB', b'\x00\xAA', b'\xBB\x00', b'\x00', b'\xBB']
+        bytes = [4, 4, 3, 3, 3, 2, 2, 1, 1]
         qntd = randint(10, 31)
-        txBuffer = []
-        for i in range(qntd):
+        txBuffer = [qntd]
+        for _ in range(qntd):
             tipo = randint(1, 10)
+            txBuffer.append(bytes[tipo])
             txBuffer.append(comandos[tipo])
-        tamanho = len(txBuffer)
-        txBuffer.append(tamanho) # essa linha implementa um protocolo: a quanitdade de bytes enviado sera enviada no ultimo indice da lista recebida
        
         print("meu array de bytes tem tamanho {}" .format(len(txBuffer)))
         #faça aqui uma conferência do tamanho do seu txBuffer, ou seja, quantos bytes serão enviados.

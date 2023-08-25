@@ -46,8 +46,13 @@ def main():
         #Veja o que faz a funcao do enlaceRX  getBufferLen
       
         #acesso aos bytes recebidos
-        txLen = len(recebido)
-        rxBuffer, nRx = com1.getData(txLen)
+        qntd, nRx = com1.getData(1)
+        recebido = []
+        for i in range(qntd):
+            txLen, _ = com1.getData(1)
+            rxBuffer, nRx = com1.getData(txLen)
+            recebido.append(rxBuffer)
+
         print("recebeu {} bytes" .format(len(rxBuffer)))
         
         for i in range(len(rxBuffer)):
