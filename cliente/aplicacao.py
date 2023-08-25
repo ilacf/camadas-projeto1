@@ -28,9 +28,9 @@ def main():
             tipo = randint(1, 9)
             txBuffer.append(bytes[tipo-1])
             txBuffer.append(comandos[tipo-1])
+            print(bytes[tipo-1], comandos[tipo-1])
         txBuffer.append(b'\xEE')
-        print(txBuffer)
-       
+               
         print("meu array de bytes tem tamanho {}" .format(len(txBuffer)))   
         
         com1.sendData(np.asarray(txBuffer)) 
