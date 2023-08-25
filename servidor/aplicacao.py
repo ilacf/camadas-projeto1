@@ -22,7 +22,7 @@ from random import randint, random
 # se estiver usando windows, o gerenciador de dispositivos informa a porta
 
 #use uma das 3 opcoes para atribuir à variável a porta usada
-serialName = "COM3"                  # Windows(variacao de)
+serialName = "COM4"                  # Windows(variacao de)
 
 
 def main():
@@ -35,6 +35,10 @@ def main():
     
         # Ativa comunicacao. Inicia os threads e a comunicação serial 
         com1.enable()
+        print("esperando 1 byte de sacrifício")
+        rxBuffer, nRx = com1.getData(1)
+        com1.rx.clearBuffer()
+        time.sleep(.1)
         #Se chegamos até aqui, a comunicação foi aberta com sucesso. Faça um print para informar.
         print("Abriu a comunicação")
         
@@ -47,8 +51,9 @@ def main():
       
         #acesso aos bytes recebidos
         qntd, nRx = com1.getData(1)
+        print(qntd , nRx)
         recebido = []
-        for i in range(qntd):
+        for i in range(nRx):
             txLen, _ = com1.getData(1)
             rxBuffer, nRx = com1.getData(txLen)
             recebido.append(rxBuffer)
