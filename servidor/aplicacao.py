@@ -1,55 +1,24 @@
-#####################################################
-# Camada Física da Computação
-#Carareto
-#11/08/2022
-#Aplicação
-####################################################
-
-
-#esta é a camada superior, de aplicação do seu software de comunicação serial UART.
-#para acompanhar a execução e identificar erros, construa prints ao longo do código! 
-
-
 from enlace import *
 import enlaceRx
 import time
 import numpy as np
-from random import randint, random
 
-# voce deverá descomentar e configurar a porta com através da qual ira fazer comunicaçao
-#   para saber a sua porta, execute no terminal :
-#   python -m serial.tools.list_ports
-# se estiver usando windows, o gerenciador de dispositivos informa a porta
-
-#use uma das 3 opcoes para atribuir à variável a porta usada
-serialName = "COM4"                  # Windows(variacao de)
+serialName = "COM4"
 
 
 def main():
     try:
         print("Iniciou o main")
-        #declaramos um objeto do tipo enlace com o nome "com". Essa é a camada inferior à aplicação. Observe que um parametro
-        #para declarar esse objeto é o nome da porta.
         com1 = enlace(serialName)
-        
-    
-        # Ativa comunicacao. Inicia os threads e a comunicação serial 
+
         com1.enable()
         print("esperando 1 byte de sacrifício")
         rxBuffer, nRx = com1.getData(1)
         com1.rx.clearBuffer()
         time.sleep(.1)
-        #Se chegamos até aqui, a comunicação foi aberta com sucesso. Faça um print para informar.
+        
         print("Abriu a comunicação")
         
-        #Agora vamos iniciar a recepção dos dados. Se algo chegou ao RX, deve estar automaticamente guardado
-        #Observe o que faz a rotina dentro do thread RX
-        #print um aviso de que a recepção vai começar.
-        
-        #Será que todos os bytes enviados estão realmente guardadas? Será que conseguimos verificar?
-        #Veja o que faz a funcao do enlaceRX  getBufferLen
-      
-        #acesso aos bytes recebidos
         recebido = []
         while True:
             txLen, _ = com1.getData(1)
@@ -64,7 +33,6 @@ def main():
         for i in range(len(rxBuffer)):
             print("recebeu {}" .format(rxBuffer[i]))
             
-        # Encerra comunicação
         print("-------------------------")
         print("Comunicação encerrada")
         print("-------------------------")
@@ -75,7 +43,5 @@ def main():
         print(erro)
         com1.disable()
         
-
-    #so roda o main quando for executado do terminal ... se for chamado dentro de outro modulo nao roda
 if __name__ == "__main__":
     main()
