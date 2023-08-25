@@ -29,6 +29,7 @@ def main():
             txBuffer.append(bytes[tipo-1])
             txBuffer.append(comandos[tipo-1])
         txBuffer.append(b'\xEE')
+        print(txBuffer)
        
         print("meu array de bytes tem tamanho {}" .format(len(txBuffer)))   
         
