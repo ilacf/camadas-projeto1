@@ -15,7 +15,7 @@ def main():
         print("esperando 1 byte de sacrifício")
         rxBuffer, nRx = com1.getData(1)
         com1.rx.clearBuffer()
-        time.sleep(.1)
+        time.sleep(1)
         
         
         recebido = []
@@ -23,12 +23,17 @@ def main():
             txLen, _ = com1.getData(1)
             print(txLen)
             if txLen != b'\xEE':
-                print("Dentro do While")
-                rxBuffer, nRx = com1.getData(int.from_bytes(txLen, byteorder='little'))
+                #print("Dentro do While")  
+                tx_int = int.from_bytes(txLen, byteorder='big')
+                print(tx_int)   
+                rxBuffer, nRx = com1.getData(tx_int)
+                time.sleep(0.1)
+                print(rxBuffer)
                 recebido.append(rxBuffer)
             else:
                 print("Saindo do While")
                 print(enlace.getBuffer())
+                print("depois do enlace")
                 break
 
         print("recebeu {} bytes" .format(len(rxBuffer)))
