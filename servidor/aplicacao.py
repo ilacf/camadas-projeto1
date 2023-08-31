@@ -36,7 +36,11 @@ def main():
                 print("depois do enlace")
                 break
 
+        qnts = len(rxBuffer)
         print("recebeu {} bytes" .format(len(rxBuffer)))
+
+        com1.sendData(np.asarray(qnts))
+        time.sleep(1)
         
         for i in range(len(rxBuffer)):
             print("recebeu {}" .format(rxBuffer[i]))

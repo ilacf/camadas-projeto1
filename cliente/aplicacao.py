@@ -26,7 +26,7 @@ def main():
         txBuffer = []
         for _ in range(qntd):
             tipo = randint(1, 9)
-            txBuffer.append(bytes[tipo-1])
+            txBuffer.append((bytes[tipo-1]).to_bytes(1, byteorder='big'))
             txBuffer.append(comandos[tipo-1])
             print(bytes[tipo-1], comandos[tipo-1])
         txBuffer.append(b'\xEE')
