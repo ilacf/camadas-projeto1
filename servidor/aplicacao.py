@@ -19,22 +19,15 @@ def main():
         
         
         recebido = []
-        while True:
-            txLen, _ = com1.getData(1)
-            print(txLen)
-            if txLen != b'\xEE':
-                #print("Dentro do While")  
-                tx_int = int.from_bytes(txLen, byteorder='big')
-                print(tx_int)   
-                rxBuffer, nRx = com1.getData(tx_int)
-                time.sleep(0.1)
-                print(rxBuffer)
-                recebido.append(rxBuffer)
-            else:
-                print("Saindo do While")
-                print(enlace.getBuffer())
-                print("depois do enlace")
-                break
+        txLen, _ = com1.getData(1)
+        print(txLen)
+        #print("Dentro do While")  
+        tx_int = int.from_bytes(txLen, byteorder='big')
+        print(tx_int)   
+        rxBuffer, nRx = com1.getData(tx_int)
+        time.sleep(0.1)
+        print(rxBuffer)
+        recebido.append(rxBuffer)
 
         qnts = len(rxBuffer)
         print("recebeu {} bytes" .format(len(rxBuffer)))
@@ -42,8 +35,8 @@ def main():
         com1.sendData(np.asarray(qnts))
         time.sleep(1)
         
-        for i in range(len(rxBuffer)):
-            print("recebeu {}" .format(rxBuffer[i]))
+       # for i in range(len(rxBuffer)):
+        #    print("recebeu {}" .format(rxBuffer[i]))
             
         print("-------------------------")
         print("Comunicação encerrada")
