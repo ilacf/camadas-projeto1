@@ -17,7 +17,7 @@ def main():
         com1.enable()
         time.sleep(.2)
         com1.sendData(b'00')
-        time.sleep(1)
+        time.sleep(0.1)
         print("Abriu a comunicação")
 
         comandos = [b'\x00\x00\x00\x00', b'\x00\x00\xBB\x00', b'\xBB\x00\x00', b'\x00\xBB\x00', b'\x00\x00\xBB', b'\x00\xAA', b'\xBB\x00', b'\x00', b'\xBB']
@@ -29,12 +29,18 @@ def main():
             txBuffer.append((bytes[tipo-1]).to_bytes(1, byteorder='big'))
             txBuffer.append(comandos[tipo-1])
             print(bytes[tipo-1], comandos[tipo-1])
-        txBuffer.append(b'\xEE')
+        txBuffer.insert(0, len(txBuffer).to_bytes(1, byteorder='big'))
                
+        print(txBuffer)
         print("meu array de bytes tem tamanho {}" .format(len(txBuffer)))   
         
         com1.sendData(np.asarray(txBuffer)) 
         time.sleep(1)
+
+        ints = []
+        for i in txBuffer:
+            ints.append(int.from_bytes(i, byteorder='big'))
+        print(ints)
 
         txSize = com1.tx.getStatus()
         print('enviou = {}' .format(txSize))

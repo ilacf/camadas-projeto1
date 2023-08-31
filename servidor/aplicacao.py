@@ -3,7 +3,7 @@ import enlaceRx
 import time
 import numpy as np
 
-serialName = "COM4"
+serialName = "COM6"
 
 def main():
     try:
@@ -21,7 +21,6 @@ def main():
         recebido = []
         txLen, _ = com1.getData(1)
         print(txLen)
-        #print("Dentro do While")  
         tx_int = int.from_bytes(txLen, byteorder='big')
         print(tx_int)   
         rxBuffer, nRx = com1.getData(tx_int)
@@ -29,8 +28,24 @@ def main():
         print(rxBuffer)
         recebido.append(rxBuffer)
 
+        # recebido = []
+        # i = 0
+        # while i < int.from_bytes(txLen, byteorder='big'):
+        #     i += 1
+        #     recebido.append(int.from_bytes(rxBuffer[i:txLen[i]], byteorder='big'))
+        # print(recebido)
+
         qnts = len(rxBuffer)
         print("recebeu {} bytes" .format(len(rxBuffer)))
+
+        print('*-'*50)
+        print(recebido)
+        print('*-'*50)
+
+        ints = []
+        for i in recebido:
+            ints.append(int.from_bytes(i, byteorder='big'))
+        print(ints)
 
         com1.sendData(np.asarray(qnts))
         time.sleep(1)
