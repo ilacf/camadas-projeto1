@@ -3,7 +3,7 @@ import enlaceRx
 import time
 import numpy as np
 
-serialName = "COM6"
+serialName = "COM4"
 
 def main():
     try:
@@ -28,30 +28,27 @@ def main():
         print(rxBuffer)
         recebido.append(rxBuffer)
 
-        # recebido = []
-        # i = 0
-        # while i < int.from_bytes(txLen, byteorder='big'):
-        #     i += 1
-        #     recebido.append(int.from_bytes(rxBuffer[i:txLen[i]], byteorder='big'))
-        # print(recebido)
+        quantidade = 0
+        lista = list(rxBuffer)
+        print(lista)
+        for byte in lista:
+            comand_list = [4,3,2,1]
+            if byte in comand_list:
+                quantidade += 1
+        print(quantidade)
 
-        qnts = len(rxBuffer)
-        print("recebeu {} bytes" .format(len(rxBuffer)))
+        # print("Enviando quantidade de comandos")
+        # com1.sendData(np.asarray(quantidade).tobytes())
+        # time.sleep(1)
+        # print("Enviado")
 
-        print('*-'*50)
-        print(recebido)
-        print('*-'*50)
-
-        ints = []
-        for i in recebido:
-            ints.append(int.from_bytes(i, byteorder='big'))
-        print(ints)
-
-        com1.sendData(np.asarray(qnts))
-        time.sleep(1)
+        time.sleep(7)
         
-       # for i in range(len(rxBuffer)):
-        #    print("recebeu {}" .format(rxBuffer[i]))
+        # print("Enviando quantidade de comandos + 1")
+        # quantidade += 1
+        # com1.sendData(np.asarray(quantidade).tobytes())
+        # time.sleep(1)
+        # print("Enviado")
             
         print("-------------------------")
         print("Comunicação encerrada")
